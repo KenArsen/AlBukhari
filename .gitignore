@@ -101,7 +101,6 @@ celerybeat-schedule.*
 
 # Environments
 albkhri/
-.env 
 .venv 
 env/ 
 venv/ 
