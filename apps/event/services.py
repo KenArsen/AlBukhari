@@ -51,7 +51,7 @@ class EventUpdateService:
         if event_serializer.is_valid():
             event_instance = event_serializer.save()
 
-            images_data = event_data.get('images', [])
+            images_data = event_data.getlist('images', [])
             for image_data in images_data:
                 # Если передается id изображения, оно может быть удалено из связи
                 image_id = image_data.get('id')
