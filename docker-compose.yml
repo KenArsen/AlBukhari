@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: albukhari_backend_db
+      POSTGRES_USER: albukharibackenduser
+      POSTGRES_PASSWORD: albukhariBackend2023
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+#  redis:
+#    image: redis:latest
+#    restart: always
+#    ports:
+#      - "6379:6379"
+
+  web:
+    build: .
+    volumes:
+      - .:/albukhari
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+#      - redis
+
+volumes:
+  postgres_data: {}

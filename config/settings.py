@@ -4,7 +4,8 @@ from environs import Env
 from corsheaders.defaults import default_headers
 
 env = Env()
-env.read_env()
+env_file = os.getenv("ENV_FILE", ".env_local")
+env.read_env(env_file)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #
+    # libs
     'rest_framework',
     'drf_yasg',
     'corsheaders',
@@ -69,23 +70,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': env.str('DATABASE_NAME'),
-#         'USER': env.str('DATABASE_USER'),
-#         'PASSWORD': env.str('DATABASE_PASSWORD'),
-#         'HOST': env.str('DATABASE_HOST'),
-#         'PORT': env.int('DATABASE_PORT'),
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env.str('DATABASE_NAME'),
+        'USER': env.str('DATABASE_USER'),
+        'PASSWORD': env.str('DATABASE_PASSWORD'),
+        'HOST': env.str('DATABASE_HOST'),
+        'PORT': env.int('DATABASE_PORT'),
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -104,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
+    "https://albukhari.inclusivetec.com",
     "http://localhost:8000",
     "http://127.0.0.1:3000",
 ]
